@@ -35,4 +35,4 @@ pnpm dev
 
 ---
 
-Inspired by [Lara Hong](https://github.com/larahong)
+Inspired by Lara Hong
