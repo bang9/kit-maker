@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Card background with rounded corners -->
+  <rect x="2" y="4" width="28" height="24" rx="4" fill="#1e293b"/>
+  <!-- Person silhouette (head) -->
+  <circle cx="16" cy="13" r="3.5" fill="#94a3b8"/>
+  <!-- Person silhouette (body arc) -->
+  <path d="M10 23.5c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="#94a3b8"/>
+  <!-- Accent line at top like a card header -->
+  <rect x="2" y="4" width="28" height="3" rx="4" ry="2" fill="#3b82f6"/>
+</svg>
