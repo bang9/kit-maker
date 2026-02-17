@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bang9.github.io/kit-maker/sitemap.xml

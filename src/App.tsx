@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { Eye, X } from 'lucide-react';
+import { Eye, X, Github } from 'lucide-react';
 import { ProfilePreview, PreviewCard, DownloadButton } from '@/components/ProfilePreview';
 import { ProfileForm } from '@/components/form/ProfileForm';
 
@@ -89,6 +89,22 @@ export default function ProfileGenerator() {
           </div>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t mt-12">
+        <div className="mx-auto max-w-6xl px-4 md:px-8 py-6 flex items-center justify-between text-xs text-muted-foreground">
+          <span>&copy; {new Date().getFullYear()} Kit Maker</span>
+          <a
+            href="https://github.com/bang9/kit-maker"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+          >
+            <Github className="size-3.5" />
+            GitHub
+          </a>
+        </div>
+      </footer>
 
       {/* Full preview overlay */}
       {overlayOpen && <PreviewOverlay onClose={closeOverlay} />}
