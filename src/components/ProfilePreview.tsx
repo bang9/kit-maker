@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { Phone, Mail, Instagram, Linkedin, Download, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { KakaoIcon } from '@/components/icons/KakaoIcon';
+import { log } from '@/lib/analytics';
 
 function usePreviewData() {
   const backgroundImage = useProfileStore((s) => s.backgroundImage);
@@ -95,6 +96,7 @@ export function DownloadButton({ targetRef }: { targetRef: React.RefObject<HTMLD
       link.download = 'keep-in-touch.png';
       link.href = dataUrl;
       link.click();
+      log('download');
     } finally {
       setDownloading(false);
     }

@@ -4,6 +4,7 @@ import { KakaoIcon } from '@/components/icons/KakaoIcon';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { useProfileStore } from '@/store/useProfileStore';
+import { log } from '@/lib/analytics';
 
 function ContactField({
   id,
@@ -78,6 +79,7 @@ export function ContactForm() {
   const handleEmailBlur = () => {
     emailTouched.current = true;
     setEmailError(validateEmail(email));
+    if (email) log('contact_fill', { field: 'email' });
   };
 
   return (
@@ -88,6 +90,7 @@ export function ContactForm() {
         icon={Phone}
         value={phone || ''}
         onChange={(v) => setPhone(v || null)}
+        onBlur={() => phone && log('contact_fill', { field: 'phone' })}
         placeholder="Phone number"
       />
       <ContactField
@@ -106,6 +109,7 @@ export function ContactForm() {
         icon={KakaoIcon}
         value={kakao || ''}
         onChange={(v) => setKakao(v || null)}
+        onBlur={() => kakao && log('contact_fill', { field: 'kakao' })}
         placeholder="Kakao ID"
       />
       <ContactField
@@ -114,6 +118,7 @@ export function ContactForm() {
         icon={Instagram}
         value={instagram || ''}
         onChange={(v) => setInstagram(v || null)}
+        onBlur={() => instagram && log('contact_fill', { field: 'instagram' })}
         placeholder="Instagram handle"
       />
       <ContactField
@@ -122,6 +127,7 @@ export function ContactForm() {
         icon={Linkedin}
         value={linkedin || ''}
         onChange={(v) => setLinkedin(v || null)}
+        onBlur={() => linkedin && log('contact_fill', { field: 'linkedin' })}
         placeholder="LinkedIn profile URL"
       />
     </div>

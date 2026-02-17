@@ -5,6 +5,7 @@ import { ImagePlus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useProfileStore } from '@/store/useProfileStore';
+import { log } from '@/lib/analytics';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -19,11 +20,13 @@ export function BackgroundImageUploader() {
     setError(null);
     if (file.size > MAX_FILE_SIZE) {
       setError('Image must be under 5MB');
+      log('background_image_error', { reason: 'size_exceeded' });
       return;
     }
     const reader = new FileReader();
     reader.onload = (event) => {
       setBackgroundImage(event.target?.result as string);
+      log('background_image_upload');
     };
     reader.readAsDataURL(file);
   };
@@ -52,6 +55,7 @@ export function BackgroundImageUploader() {
   const handleRemoveImage = () => {
     setBackgroundImage(null);
     setError(null);
+    log('background_image_remove');
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }

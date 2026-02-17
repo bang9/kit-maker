@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { Eye, X, Github } from 'lucide-react';
 import { ProfilePreview, PreviewCard, DownloadButton } from '@/components/ProfilePreview';
 import { ProfileForm } from '@/components/form/ProfileForm';
+import { log } from '@/lib/analytics';
 
 function PreviewOverlay({ onClose }: { onClose: () => void }) {
   const overlayCardRef = useRef<HTMLDivElement>(null);
@@ -40,7 +41,10 @@ export default function ProfileGenerator() {
     return () => observer.disconnect();
   }, []);
 
-  const openOverlay = useCallback(() => setOverlayOpen(true), []);
+  const openOverlay = useCallback(() => {
+    setOverlayOpen(true);
+    log('preview_overlay_open');
+  }, []);
   const closeOverlay = useCallback(() => setOverlayOpen(false), []);
 
   return (

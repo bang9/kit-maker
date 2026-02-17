@@ -4,6 +4,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useProfileStore } from '@/store/useProfileStore';
+import { log } from '@/lib/analytics';
 
 const EmojiMartPicker = lazy(() =>
   Promise.all([import('@emoji-mart/data'), import('@emoji-mart/react')]).then(([dataModule, pickerModule]) => ({
@@ -22,6 +23,7 @@ export function EmojiPicker() {
   const handleEmojiSelect = (selected: { native: string }) => {
     setEmoji(selected.native);
     setOpen(false);
+    log('emoji_select', { emoji: selected.native });
   };
 
   return (
@@ -45,6 +47,7 @@ export function EmojiPicker() {
               onClick={(e) => {
                 e.stopPropagation();
                 setEmoji(null);
+                log('emoji_clear');
               }}
               className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors"
             >

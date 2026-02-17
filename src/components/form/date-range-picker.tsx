@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import type { DateRange } from 'react-day-picker';
 import { useProfileStore } from '@/store/useProfileStore';
+import { log } from '@/lib/analytics';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -16,6 +17,9 @@ export function DateRangePicker() {
 
   const handleSelect = (range: DateRange | undefined) => {
     setDateRange(range ?? { from: undefined, to: undefined });
+    if (range?.from && range?.to) {
+      log('date_range_select');
+    }
   };
 
   const hasValue = dateRange.from || dateRange.to;
@@ -52,7 +56,10 @@ export function DateRangePicker() {
           {hasValue && (
             <button
               type="button"
-              onClick={() => setDateRange({ from: undefined, to: undefined })}
+              onClick={() => {
+                setDateRange({ from: undefined, to: undefined });
+                log('date_range_clear');
+              }}
               className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <X className="size-3.5" />
