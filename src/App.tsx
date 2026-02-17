@@ -91,17 +91,18 @@ export default function ProfileGenerator() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-12">
-        <div className="mx-auto max-w-6xl px-4 md:px-8 py-6 flex items-center justify-between text-xs text-muted-foreground">
+      <footer className="mt-16 pb-8">
+        <div className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground/50">
           <span>&copy; {new Date().getFullYear()} Kit Maker</span>
+          <span>&middot;</span>
           <a
             href="https://github.com/bang9/kit-maker"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-1 hover:text-muted-foreground transition-colors"
           >
-            <Github className="size-3.5" />
-            GitHub
+            <Github className="size-3" />
+            <span>GitHub</span>
           </a>
         </div>
       </footer>
