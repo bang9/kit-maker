@@ -82,7 +82,13 @@ export const PreviewCard = forwardRef<HTMLDivElement, { className?: string }>(fu
   );
 });
 
-export function DownloadButton({ targetRef }: { targetRef: React.RefObject<HTMLDivElement | null> }) {
+export function DownloadButton({
+  targetRef,
+  source,
+}: {
+  targetRef: React.RefObject<HTMLDivElement | null>;
+  source: 'main' | 'overlay';
+}) {
   const [downloading, setDownloading] = useState(false);
 
   const handleDownload = async () => {
@@ -96,7 +102,7 @@ export function DownloadButton({ targetRef }: { targetRef: React.RefObject<HTMLD
       link.download = 'keep-in-touch.png';
       link.href = dataUrl;
       link.click();
-      log('download');
+      log('card_download', { source });
     } finally {
       setDownloading(false);
     }
@@ -118,7 +124,7 @@ export const ProfilePreview = forwardRef<HTMLDivElement>(function ProfilePreview
     <div ref={ref}>
       <PreviewCard ref={cardRef} className="w-80 rounded-2xl shadow-xl ring-1 ring-black/5" />
       <div className="flex items-center justify-center mt-4">
-        <DownloadButton targetRef={cardRef} />
+        <DownloadButton targetRef={cardRef} source="main" />
       </div>
     </div>
   );

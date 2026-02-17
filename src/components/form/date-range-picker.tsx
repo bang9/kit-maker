@@ -18,7 +18,7 @@ export function DateRangePicker() {
   const handleSelect = (range: DateRange | undefined) => {
     setDateRange(range ?? { from: undefined, to: undefined });
     if (range?.from && range?.to) {
-      log('date_range_select');
+      log('date_select');
     }
   };
 
@@ -58,7 +58,7 @@ export function DateRangePicker() {
               type="button"
               onClick={() => {
                 setDateRange({ from: undefined, to: undefined });
-                log('date_range_clear');
+                log('date_clear');
               }}
               className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-sm text-muted-foreground hover:text-foreground transition-colors"
             >

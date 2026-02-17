@@ -1,6 +1,7 @@
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { useProfileStore } from '@/store/useProfileStore';
+import { log } from '@/lib/analytics';
 
 export function OverlaySettings() {
   const overlayColor = useProfileStore((s) => s.overlayColor);
@@ -22,6 +23,7 @@ export function OverlaySettings() {
               type="color"
               value={overlayColor}
               onChange={(e) => setOverlayColor(e.target.value)}
+              onBlur={() => log('overlay_color_change', { color: overlayColor })}
               className="absolute inset-0 w-[150%] h-[150%] -top-1/4 -left-1/4 cursor-pointer"
             />
           </label>
@@ -41,6 +43,7 @@ export function OverlaySettings() {
           step={1}
           value={[overlayOpacity]}
           onValueChange={(value) => setOverlayOpacity(value[0])}
+          onValueCommit={(value) => log('overlay_opacity_change', { opacity: value[0] })}
         />
       </div>
     </div>

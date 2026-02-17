@@ -48,6 +48,18 @@ function ContactField({
   );
 }
 
+type ContactFieldName = 'phone' | 'email' | 'kakao' | 'instagram' | 'linkedin';
+
+function useContactLogger(field: ContactFieldName, value: string | null) {
+  const prev = useRef(value);
+  return () => {
+    if (value && value !== prev.current) {
+      log('contact_fill', { field });
+    }
+    prev.current = value;
+  };
+}
+
 export function ContactForm() {
   const phone = useProfileStore((s) => s.phone);
   const email = useProfileStore((s) => s.email);
@@ -62,6 +74,12 @@ export function ContactForm() {
 
   const [emailError, setEmailError] = useState<string | null>(null);
   const emailTouched = useRef(false);
+
+  const logPhone = useContactLogger('phone', phone);
+  const logEmail = useContactLogger('email', email);
+  const logKakao = useContactLogger('kakao', kakao);
+  const logInstagram = useContactLogger('instagram', instagram);
+  const logLinkedin = useContactLogger('linkedin', linkedin);
 
   const validateEmail = (value: string | null) => {
     if (!value) return null;
@@ -79,7 +97,7 @@ export function ContactForm() {
   const handleEmailBlur = () => {
     emailTouched.current = true;
     setEmailError(validateEmail(email));
-    if (email) log('contact_fill', { field: 'email' });
+    logEmail();
   };
 
   return (
@@ -90,7 +108,7 @@ export function ContactForm() {
         icon={Phone}
         value={phone || ''}
         onChange={(v) => setPhone(v || null)}
-        onBlur={() => phone && log('contact_fill', { field: 'phone' })}
+        onBlur={logPhone}
         placeholder="Phone number"
       />
       <ContactField
@@ -109,7 +127,7 @@ export function ContactForm() {
         icon={KakaoIcon}
         value={kakao || ''}
         onChange={(v) => setKakao(v || null)}
-        onBlur={() => kakao && log('contact_fill', { field: 'kakao' })}
+        onBlur={logKakao}
         placeholder="Kakao ID"
       />
       <ContactField
@@ -118,7 +136,7 @@ export function ContactForm() {
         icon={Instagram}
         value={instagram || ''}
         onChange={(v) => setInstagram(v || null)}
-        onBlur={() => instagram && log('contact_fill', { field: 'instagram' })}
+        onBlur={logInstagram}
         placeholder="Instagram handle"
       />
       <ContactField
@@ -127,7 +145,7 @@ export function ContactForm() {
         icon={Linkedin}
         value={linkedin || ''}
         onChange={(v) => setLinkedin(v || null)}
-        onBlur={() => linkedin && log('contact_fill', { field: 'linkedin' })}
+        onBlur={logLinkedin}
         placeholder="LinkedIn profile URL"
       />
     </div>

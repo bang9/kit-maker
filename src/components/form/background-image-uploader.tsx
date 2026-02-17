@@ -16,24 +16,24 @@ export function BackgroundImageUploader() {
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const processFile = (file: File) => {
+  const processFile = (file: File, method: 'click' | 'drop') => {
     setError(null);
     if (file.size > MAX_FILE_SIZE) {
       setError('Image must be under 5MB');
-      log('background_image_error', { reason: 'size_exceeded' });
+      log('bg_error', { reason: 'size_exceeded' });
       return;
     }
     const reader = new FileReader();
     reader.onload = (event) => {
       setBackgroundImage(event.target?.result as string);
-      log('background_image_upload');
+      log('bg_upload', { method });
     };
     reader.readAsDataURL(file);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) processFile(file);
+    if (file) processFile(file, 'click');
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -49,13 +49,13 @@ export function BackgroundImageUploader() {
     e.preventDefault();
     setIsDragging(false);
     const file = e.dataTransfer.files?.[0];
-    if (file) processFile(file);
+    if (file) processFile(file, 'drop');
   };
 
   const handleRemoveImage = () => {
     setBackgroundImage(null);
     setError(null);
-    log('background_image_remove');
+    log('bg_remove');
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }

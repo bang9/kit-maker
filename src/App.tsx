@@ -12,7 +12,7 @@ function PreviewOverlay({ onClose }: { onClose: () => void }) {
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <div className="relative mx-4 flex flex-col items-center gap-4" onClick={(e) => e.stopPropagation()}>
         <PreviewCard ref={overlayCardRef} className="w-80 rounded-2xl shadow-2xl ring-1 ring-white/10" />
-        <DownloadButton targetRef={overlayCardRef} />
+        <DownloadButton targetRef={overlayCardRef} source="overlay" />
         <button
           type="button"
           onClick={onClose}
@@ -43,7 +43,7 @@ export default function ProfileGenerator() {
 
   const openOverlay = useCallback(() => {
     setOverlayOpen(true);
-    log('preview_overlay_open');
+    log('preview_open');
   }, []);
   const closeOverlay = useCallback(() => setOverlayOpen(false), []);
 
